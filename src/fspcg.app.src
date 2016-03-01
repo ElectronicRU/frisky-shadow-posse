@@ -1,0 +1,12 @@
+{application, fspcg,
+ [
+  {description, "A collectible card game. Exciting!"},
+  {vsn, "0.0.1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { fspcg_app, []}},
+  {env, []}
+ ]}.

@@ -4,7 +4,7 @@
 
 -type registry() :: gb_trees:tree(id(), #object{}).
 -type creature() :: #object{state :: #cstate{}}.
--type board() :: map(position(), creature()).
+-type board() :: #{position()=>creature()}.
 
 
 unique_id() ->
@@ -33,7 +33,7 @@ get_ccard_by_name(Name) ->
 -spec registry_load(registry(), id()) -> #object{}.
 registry_load(Registry, Id) ->
     Result = gb_trees:get(Id, Registry),
-    assertEqual(Result#object.id, Id),			% they all start with id
+    ?assertEqual(Result#object.id, Id),			% they all start with id
     Result.
 
 -spec registry_store(registry(), #object{}) -> registry().
@@ -44,11 +44,11 @@ registry_store(Registry, Object) ->
 -spec board_get(board(), position()) -> creature().
 board_get(Board, Position) ->
     #{Position := Result} = Board,
-    assertEqual(Result#object.state#cstate.position, Position),
+    ?assertEqual(Result#object.state#cstate.position, Position),
     Result.
 
 -spec board_put(board(), creature()) -> board().
 board_put(Board, Creature) ->
     Position = Creature#object.state#cstate.position,
-    assertEqual(maps:find(Board, Position), error),
+    ?assertEqual(maps:find(Board, Position), error),
     Board#{Position => Creature}.
